@@ -4,5 +4,14 @@
 {% endblock %}
 {% block main %}
     <h4>App core criada com sucesso</h4>
+    <p>Olá {{ usuario.funcionario.nome }}</p>
+    <a href="{% url 'list_funcionario' %}">Gerenciar Funcionarios</a>
+    <a href="{% url 'list_departamento' %}">Gerenciar Funcionarios</a>
+
+    {% if usuario.funcionario.empresa %}
+        <a href="{% url 'empresaUpdate' usuario.funcionario.empresa.id %}">Editar empresa</a>
+    {% else %}
+        <a href="{% url 'empresaCreate' %}">Criar empresa </a>
+    {% endif %}
     <a href="{% url 'logout' %}">Sair</a>
 {% endblock %}
