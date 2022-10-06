@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% load bootstrap %}
+{% block titulo%}
+    Hora Extra
+{% endblock %}
+{% block main %}
+<form method="post">
+    {% csrf_token %}
+    {{ form|bootstrap }}<br>
+    <input type="submit" value="{{ btn }}">
+</form>
+{% endblock %}

@@ -19,7 +19,6 @@
 </nav>
 <div class="container">
     <h4>App core criada com sucesso</h4>
-    <p>Olá </p>
     <div class="list-group">
         <a href="{% url 'list_funcionario' %}"
            class="list-group-item list-group-item-action"
@@ -28,6 +27,10 @@
         <a href="{% url 'list_departamento' %}"
            class="list-group-item list-group-item-action"
            aria-current="true">Gerenciar Departamentos
+        </a>
+        <a href="{% url 'list_hora_extra' %}"
+           class="list-group-item list-group-item-action"
+           aria-current="true">Gerenciar Horas-Extras
         </a>
     </div>
 </div>

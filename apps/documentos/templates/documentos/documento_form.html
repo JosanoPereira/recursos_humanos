@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% load bootstrap %}
+{% block titulo%}
+    Documentos
+{% endblock %}
+{% block main %}
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form|bootstrap }}
+    <input type="submit" value="{{ btn }}">
+</form>
+{% endblock %}

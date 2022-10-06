@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block titulo%}
+    Lista de Horas Extras
+{% endblock %}
+{% block main %}
+<div class="">
+    <a href="{% url 'create_hora_extra' %}" class="btn btn-light">Nova Hora-Extra</a>
+</div>
+<table class="table">
+  <thead class="table-dark">
+     <tr>
+      <th scope="col">#</th>
+      <th scope="col">Motivo</th>
+      <th scope="col">Funcionário</th>
+      <th scope="col">Horas</th>
+      <th scope="col">Atualizar</th>
+      <th scope="col">Apagar</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for hora in object_list %}
+        <tr>
+            <td>{{ hora.id }}</td>
+            <td>{{ hora.motivo }}</td>
+            <td>{{ hora.funcionario }}</td>
+            <td>{{ hora.horas }}</td>
+            <td>
+                <a href="{% url 'update_hora_extra' hora.id %}"
+                   class="btn btn-outline-primary">Atualizar</a>
+            </td>
+            <td>
+                <a href="{% url 'delete_hora_extra' hora.id %}"
+                   class="btn btn-outline-danger">Apagar</a>
+            </td>
+        </tr>
+    {% empty %}
+        <tr>
+            <td>Sem dados</td>
+        </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

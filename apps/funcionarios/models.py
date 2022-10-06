@@ -15,5 +15,6 @@ class Funcionario(models.Model):
 
     def get_absolute_url(self):
         return reverse_lazy('list_funcionario')
+
     def __str__(self):
         return self.nome

@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block titulo%}
+    Deletetar {{ object.motivo }}
+{% endblock %}
+{% block main %}
+<form method="post">
+    {% csrf_token %}
+    <p>Tem certeza que pretende apagar o
+      "{{ object.motivo }} de {{ object.funcionario.nome}}"?
+    </p>
+    {{ form }}
+    <button type="submit" class="btn btn-danger">Confirmar</button>
+</form>
+{% endblock %}

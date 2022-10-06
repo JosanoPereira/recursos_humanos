@@ -9,4 +9,10 @@
     {{ form|bootstrap }}
     <input type="submit" value="{{ btn }}">
 </form>
+<a href="{% url 'create_documento' object.id %}">
+    Adicionar Documento
+</a>
+{% for documento in object.documento_set.all %}
+<p>{{documento}}</p>
+{% endfor %}
 {% endblock %}
