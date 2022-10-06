@@ -3,15 +3,33 @@
     App Core
 {% endblock %}
 {% block main %}
+<nav class="navbar navbar-expand-lg bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">{{ usuario.funcionario.nome }}</a>
+      <div class="d-flex">
+        {% if usuario.funcionario.empresa %}
+        <a class="me-2 btn btn-light" href="{% url 'empresaUpdate' usuario.funcionario.empresa.id %}">Editar empresa</a>
+        {% else %}
+        <a class="m-2 btn btn-light" href="{% url 'empresaCreate' %}">Criar empresa </a>
+        {% endif %}
+        <a class="btn btn-outline-success" href="{% url 'logout' %}">Sair</a>
+      </div>
+    </div>
+  </div>
+</nav>
+<div class="container">
     <h4>App core criada com sucesso</h4>
-    <p>Olá {{ usuario.funcionario.nome }}</p>
-    <a href="{% url 'list_funcionario' %}">Gerenciar Funcionarios</a>
-    <a href="{% url 'list_departamento' %}">Gerenciar Funcionarios</a>
+    <p>Olá </p>
+    <div class="list-group">
+        <a href="{% url 'list_funcionario' %}"
+           class="list-group-item list-group-item-action"
+           aria-current="true">Gerenciar Funcionarios
+        </a>
+        <a href="{% url 'list_departamento' %}"
+           class="list-group-item list-group-item-action"
+           aria-current="true">Gerenciar Departamentos
+        </a>
+    </div>
+</div>
 
-    {% if usuario.funcionario.empresa %}
-        <a href="{% url 'empresaUpdate' usuario.funcionario.empresa.id %}">Editar empresa</a>
-    {% else %}
-        <a href="{% url 'empresaCreate' %}">Criar empresa </a>
-    {% endif %}
-    <a href="{% url 'logout' %}">Sair</a>
 {% endblock %}

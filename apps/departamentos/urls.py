@@ -1,10 +1,10 @@
 from django.urls import path
-from .views import FuncionarioList, FuncionarioUpdate,\
-    FuncionarioDelete, FuncionarioCreate
+from .views import DepartamentoList, DepartamentoUpdate, \
+    DepartamentoDelete, DepartamentoCreate
 
 urlpatterns = [
-    path('', FuncionarioList.as_view(), name='list_funcionario'),
-    path('update/<int:pk>/', FuncionarioUpdate.as_view(), name='update_funcionario'),
-    path('delete/<int:pk>/', FuncionarioDelete.as_view(), name='delete_funcionario'),
-    path('create/', FuncionarioCreate.as_view(), name='create_funcionario'),
+    path('', DepartamentoList.as_view(), name='list_departamento'),
+    path('create/', DepartamentoCreate.as_view(), name='create_departamento'),
+    path('update/<int:pk>', DepartamentoUpdate.as_view(), name='update_departamento'),
+    path('delete/<int:pk>', DepartamentoDelete.as_view(), name='delete_departamento'),
 ]

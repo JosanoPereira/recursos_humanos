@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block titulo%}
+  {{titulo}} de {{ object.nome }}
+{% endblock %}
+{% block main %}
+<form method="post">
+    {% csrf_token %}
+    <p>Are you sure you want to delete "{{ object.nome }}"?</p>
+    {{ form }}
+    <button type="submit" class="btn btn-danger">{{btn}}</button>
+</form>
+{% endblock %}
