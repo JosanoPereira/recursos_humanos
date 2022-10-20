@@ -7,14 +7,31 @@
 <form method="post">
     {% csrf_token %}
     {{ form|bootstrap }}
+    <br>
     <input type="submit" value="{{ btn }}">
 </form>
+<br>
+
+<h2>Documentos</h2>
+<ul>
+{% for documento in object.documento_set.all %}
+<li>{{documento}}</li>
+{% endfor %}
+</ul>
 {% if object %}
-<a href="{% url 'create_documento' object.id %}">
+<a href="{% url 'create_documento' object.id %}" class="btn btn-success">
     Adicionar Documento
 </a>
 {% endif %}
-{% for documento in object.documento_set.all %}
-<p>{{documento}}</p>
+
+<h2>Horas Extras</h2>
+<ul>
+{% for hora_extra in object.horaextra_set.all %}
+<li>
+    <a href="{% url 'update_hora_extra' hora_extra.id %}">{{hora_extra.motivo}} | {{hora_extra.horas}}h</a>
+</li>
 {% endfor %}
+</ul>
+<h4>Total de Horas Extra: {{object.total_horas_extra}}</h4>
+
 {% endblock %}
