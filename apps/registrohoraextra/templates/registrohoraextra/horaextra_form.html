@@ -11,19 +11,36 @@
     <input type="submit" class="btn btn-warning" value="{{ btn }}">
     {% if object %}
     <a href="{% url 'delete_hora_extra' object.id %}" class="btn btn-danger">Deletar</a>
-
-    {% endif %}
-</form>
-{% if object %}
-<button class="btn btn-info" onclick="utilizou_hora_extra({{ object.id }})">
+    <button class="btn btn-info" type="button" onclick="utilizouHoraExtra({{ object.id }})">
     Utilizou a Hora Extra
     </button>
-{% endif %}
-
+    {% endif %}
+</form>
+<br>
 <p id="mensagem"></p>
+<p id="horas_atualizadas">{{ object.funcionario.total_horas_extra }}</p>
 {% endblock %}
 
 {% block static%}
-<script src="{% static 'js/jquery.js' %}"></script>
+<script src="{% static 'js/jquery-3.6.1.js' %}"></script>
 <script src="{% static 'js/funcoes-ajax.js' %}"></script>
+<script>
+function utilizouHoraExtra(id){
+    console.log(id)
+    token = document.getElementsByName('csrfmiddlewaretoken')[0].value
+
+    $.ajax({
+        type: 'POST',
+        url: '{% url 'utitizou_hora_extra' object.id %}',
+        data: {
+            csrfmiddlewaretoken: token
+        },
+        success: function(result){
+            console.log(result)
+            $('#mensagem').text(result.mensagem)
+            $('#horas_atualizadas').text(result.horas)
+        }
+    });
+}
+</script>
 {% endblock %}
