@@ -1,12 +1,15 @@
 from django.contrib.auth.models import User
 from django.urls import reverse_lazy
+from django.views import View
 from django.views.generic.list import ListView
 from django.views.generic.edit import UpdateView, DeleteView, CreateView
 from .models import Funcionario
-
 import io
 from django.http import FileResponse, HttpResponse
 from reportlab.pdfgen import canvas
+
+from django.template.loader import get_template
+import xhtml2pdf.pisa as pisa
 
 
 class FuncionarioList(ListView):
@@ -69,7 +72,7 @@ def pdf_reportlab(request):
     str_ = 'Nome: %s | Horas: %s | Empresa: %s'
     y = 790
     for funcionario in funcionarios:
-        p.drawString(10, y, str_ %(
+        p.drawString(10, y, str_ % (
             funcionario.nome, funcionario.total_horas_extra,
             funcionario.empresa
         ))
@@ -83,3 +86,31 @@ def pdf_reportlab(request):
     # present the option to save the file.
     buffer.seek(0)
     return FileResponse(buffer, as_attachment=True, filename='hello.pdf')
+
+
+class Render:
+    @staticmethod
+    def render(path: str, params: str, filename: str):
+        template = get_template(path)
+        html = template.render(params)
+        response = io.BytesIO()
+        pdf = pisa.pisaDocument(
+            io.BytesIO(html.encode('UTF-8')), response)
+        if not pdf.err:
+            response = HttpResponse(
+                response.getvalue(), content_type='application/pdf')
+            response['Content-Disposition'] = 'attachment;filename=%s.pdf' % filename
+            return response
+        else:
+            return HttpResponse('Erro ao renderizar PDF', status=400)
+
+
+class PDF(View):
+    def get(self, request):
+        params = {
+            'today': 'variavel today',
+            'sales': 'variavel sabes',
+            'request': request
+        }
+
+        return Render.render('funcionarios/relatorio.html', params, 'myfile')

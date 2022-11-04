@@ -1,3 +1,4 @@
+import csv
 import json
 from django.http import HttpResponse
 from django.urls import reverse_lazy
@@ -71,3 +72,18 @@ class UtitizouHoraExtra(View):
 
         return HttpResponse(response, content_type='application/json')
 
+
+class RelatorioCSV(View):
+    def get(self, request):
+        # Create the HttpResponse object with the appropriate CSV header.
+        response = HttpResponse(content_type='text/csv')
+        response['Content-Disposition'] = 'attachment; filename="teste.csv"'
+        horas_extras = HoraExtra.objects.filter(utilizada=False)
+        writer = csv.writer(response)
+        writer.writerow(['ID', 'Motivo', 'Funcionário', 'Horas', 'Total de Horas'])
+        for horas in horas_extras:
+            writer.writerow([
+                horas.id, horas.motivo, horas.funcionario, horas.horas, horas.funcionario.total_horas_extra
+            ])
+
+        return response
